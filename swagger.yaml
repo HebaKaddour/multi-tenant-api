@@ -1,0 +1,76 @@
+openapi: 3.0.0
+info:
+  title: Multi-Tenant API
+  version: 1.0.0
+  description: API for managing users, orders, and products in a multi-tenant environment.
+servers:
+  - url: http://127.0.0.1:8000/api
+    description: Local development server
+paths:
+  /login:
+    post:
+      summary: Login a user
+      description: Authenticate a user and return an access token.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':
+          description: User logged in successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'  # تم تصحيح المرجع
+        '401':
+          description: Unauthenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+components:
+  schemas:
+    LoginRequest:
+      type: object
+      properties:
+        email:
+          type: string
+          example: "john.doe@example.com"
+        password:
+          type: string
+          example: "password123"
+      required:
+        - email
+        - password
+
+    LoginResponse:
+      type: object
+      properties:
+        token:
+          type: string
+          example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+        user:
+          type: object
+          properties:
+            id:
+              type: integer
+              example: 1
+            name:
+              type: string
+              example: "John Doe"
+            email:
+              type: string
+              example: "john.doe@example.com"
+
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "Error message"
+        errors:
+          type: object
+          example: { "field": ["Error message"] }
