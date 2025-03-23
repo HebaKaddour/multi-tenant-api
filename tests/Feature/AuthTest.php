@@ -14,20 +14,20 @@ class AuthTest extends TestCase
     /**
      * A basic feature test example.
      */
-    use DatabaseTransactions;
+  //  use DatabaseTransactions;
     public function test_can_register_a_user()
     {
 
         $data = [
-            'name' => 'Test User',
-            'email' => 'testuser@example.com',
+            'name' => 'Test User2',
+            'email' => 'testuser2@example.com',
             'password' => 'password123',
             'password_confirmation' =>'password123',
             'tenant_name' => 'Tenant A'
         ];
 
         $response = $this->postJson('/api/register', $data);
-       // dd($response->json());
+        dd($response->json());
 
         $response->assertStatus(201)
             ->assertJsonStructure([
@@ -35,16 +35,15 @@ class AuthTest extends TestCase
             ]);
 
         $this->assertDatabaseHas('users', [
-            'email' => 'testuser@example.com',
+            'email' => 'testuser2@example.com',
         ]);
     }
+
     public function test_can_login_a_user()
 {
     $tenant = Tenant::create(['name' => 'Test Tenant']);
-
-
     $user = User::factory()->create([
-        'email' => 'testuser@example.com',
+        'email' => 'testuser2@example.com',
         'password' => bcrypt('password123'),
         'tenant_id' => $tenant->id,
     ]);

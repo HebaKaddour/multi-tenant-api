@@ -29,7 +29,6 @@ class ProductController extends Controller
     return $this->successResponse($product, 'product created successfuly', 201);
 }
 
-
 public function update(ProductRequest $request, $id)
 {
     $tenant = auth()->user()->tenant;
