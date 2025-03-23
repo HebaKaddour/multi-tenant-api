@@ -21,10 +21,10 @@ php artisan serv
 
 Testing:
 To test the API, you can run the following commands:
-php artisan make:test ProductTest
-php artisan make:test AuthTest
-php artisan make:test OrderTest
-php artisan make:test MultiTenantWorkflowTest
+php artisan test --filter=ProductTest
+php artisan test --filter=AuthTest
+php artisan test --filter=OrderTest
+php artisan test --filter=MultiTenantWorkflowTest
 
 API  documentation :
 https://github.com/HebaKaddour/multi-tenant-api/blob/master/swagger.yaml
